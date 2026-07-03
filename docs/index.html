@@ -103,7 +103,7 @@
   footer h3 { font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 .6rem; color: var(--ink-2); }
   footer ul { margin: 0 0 1.4rem; padding-left: 1.05rem; }
   footer li { margin-bottom: .25rem; max-width: 90ch; }
-  footer .sig { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; border-top: 1px solid var(--hair); padding-top: 1rem; }
+  footer .sig { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
   #tip {
     position: fixed; pointer-events: none; z-index: 10; display: none;
     background: var(--ink); color: var(--white); font-size: .76rem;
@@ -139,8 +139,6 @@
   </div>
 
   <section>
-    <div class="sect-head"><h2>Verlauf</h2></div>
-    <p class="sect-note">Der Provisionssatz richtet sich pro Objekt und Monat nach dem Brutto-Monatsumsatz: bis CHF 1'600 gelten 5 %, darüber 10 %.</p>
     <div class="charts">
       <div class="chart">
         <h3>Bruttoumsatz pro Monat und Objekt</h3>
@@ -159,22 +157,21 @@
 
   <section>
     <div class="sect-head"><h2>Monatsübersicht</h2></div>
-    <p class="sect-note">Provisionsbasis pro Buchung = Buchungswert abzüglich Portal-Kommission und Reinigungspauschale (Studio CHF 100, Apartment CHF 130).</p>
     <div class="tablewrap">
       <table>
         <thead>
-          <tr><th>Monat / Objekt</th><th class="num">Buchungen</th><th class="num">Umsatz brutto</th><th class="num">Provisionsbasis</th><th style="text-align:center">Satz</th><th class="num">Provision</th></tr>
+          <tr><th>Monat / Objekt</th><th class="num">Buchungen</th><th class="num">Umsatz brutto</th><th class="num">Provisionsbasis</th><th class="num">Provision</th></tr>
         </thead>
         <tbody>
-          <tr><td><i class="dot" style="background:var(--studio)"></i>April · Studio</td><td class="num">2</td><td class="num">634.76</td><td class="num">344.73</td><td style="text-align:center"><span class="pill">5 %</span></td><td class="num">17.24</td></tr>
-          <tr><td><i class="dot" style="background:var(--apartment)"></i>April · Apartment</td><td class="num">5</td><td class="num">2'603.44</td><td class="num">1'572.81</td><td style="text-align:center"><span class="pill">10 %</span></td><td class="num">157.29</td></tr>
-          <tr class="sub"><td>Total April</td><td class="num">7</td><td class="num">3'238.20</td><td class="num">1'917.54</td><td></td><td class="num">174.53</td></tr>
-          <tr><td><i class="dot" style="background:var(--studio)"></i>Mai · Studio</td><td class="num">9</td><td class="num">3'079.32</td><td class="num">1'711.69</td><td style="text-align:center"><span class="pill">10 %</span></td><td class="num">171.18</td></tr>
-          <tr><td><i class="dot" style="background:var(--apartment)"></i>Mai · Apartment</td><td class="num">4</td><td class="num">2'835.58</td><td class="num">1'891.08</td><td style="text-align:center"><span class="pill">10 %</span></td><td class="num">189.12</td></tr>
-          <tr class="sub"><td>Total Mai</td><td class="num">13</td><td class="num">5'914.90</td><td class="num">3'602.77</td><td></td><td class="num">360.30</td></tr>
-          <tr><td><i class="dot" style="background:var(--studio)"></i>Juni · Studio</td><td class="num">8</td><td class="num">3'321.93</td><td class="num">2'089.56</td><td style="text-align:center"><span class="pill">10 %</span></td><td class="num">208.96</td></tr>
-          <tr><td><i class="dot" style="background:var(--apartment)"></i>Juni · Apartment</td><td class="num">3</td><td class="num">1'703.40</td><td class="num">1'056.72</td><td style="text-align:center"><span class="pill">10 %</span></td><td class="num">105.68</td></tr>
-          <tr class="sub"><td>Total Juni</td><td class="num">11</td><td class="num">5'025.33</td><td class="num">3'146.28</td><td></td><td class="num">314.64</td></tr>
+          <tr><td><i class="dot" style="background:var(--studio)"></i>April · Studio</td><td class="num">2</td><td class="num">634.76</td><td class="num">344.73</td><td class="num">17.24</td></tr>
+          <tr><td><i class="dot" style="background:var(--apartment)"></i>April · Apartment</td><td class="num">5</td><td class="num">2'603.44</td><td class="num">1'572.81</td><td class="num">157.29</td></tr>
+          <tr class="sub"><td>Total April</td><td class="num">7</td><td class="num">3'238.20</td><td class="num">1'917.54</td><td class="num">174.53</td></tr>
+          <tr><td><i class="dot" style="background:var(--studio)"></i>Mai · Studio</td><td class="num">9</td><td class="num">3'079.32</td><td class="num">1'711.69</td><td class="num">171.18</td></tr>
+          <tr><td><i class="dot" style="background:var(--apartment)"></i>Mai · Apartment</td><td class="num">4</td><td class="num">2'835.58</td><td class="num">1'891.08</td><td class="num">189.12</td></tr>
+          <tr class="sub"><td>Total Mai</td><td class="num">13</td><td class="num">5'914.90</td><td class="num">3'602.77</td><td class="num">360.30</td></tr>
+          <tr><td><i class="dot" style="background:var(--studio)"></i>Juni · Studio</td><td class="num">8</td><td class="num">3'321.93</td><td class="num">2'089.56</td><td class="num">208.96</td></tr>
+          <tr><td><i class="dot" style="background:var(--apartment)"></i>Juni · Apartment</td><td class="num">3</td><td class="num">1'703.40</td><td class="num">1'056.72</td><td class="num">105.68</td></tr>
+          <tr class="sub"><td>Total Juni</td><td class="num">11</td><td class="num">5'025.33</td><td class="num">3'146.28</td><td class="num">314.64</td></tr>
         </tbody>
       </table>
     </div>
@@ -199,15 +196,6 @@
   </section>
 
   <footer>
-    <h3>Berechnungsgrundlagen &amp; Hinweise</h3>
-    <ul>
-      <li>Provisionssatz pro Objekt und Monat: Brutto-Monatsumsatz (vor Abzug der Portal-Kommission) bis CHF 1'600 → 5 %, über CHF 1'600 → 10 %.</li>
-      <li>Provisionsbasis pro Buchung: Buchungswert abzüglich Portal-Kommission und Reinigungspauschale (Studio CHF 100, Apartment CHF 130).</li>
-      <li>Airbnb zahlt netto aus (Servicegebühr bereits abgezogen); für den Schwellenwert massgebend sind die Bruttoeinkünfte.</li>
-      <li>Monatszuordnung nach Abreisedatum – entspricht der Rechnungsperiode von Booking.com. Vier stornierte Buchungen (CHF 0) sind nicht berücksichtigt.</li>
-      <li>Buchung C. Kolb (Abreise 01.04.) wurde bereits mit der März-Abrechnung erfasst; Buchung S. Passant (Abreise 03.07.) folgt mit der Juli-Abrechnung.</li>
-      <li>Quellen: Booking.com Reservation Statements &amp; Anreise-Übersicht 01.04.–30.06.2026, Airbnb-Auszahlungsübersicht April–Juni 2026.</li>
-    </ul>
     <div class="sig">
       <span>Hostflow · jan@hostflow.ch</span>
       <span>Abrechnung 2. Quartal 2026 · erstellt 03.07.2026</span>
