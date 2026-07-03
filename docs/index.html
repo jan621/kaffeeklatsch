@@ -4,341 +4,58 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Abrechnung Q2 2026 · B&B Brig by KaffeeKlatsch</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
-<style>
-  :root {
-    --white: #FFFFFF;
-    --ink: #1A1B1E;
-    --ink-2: #55585E;
-    --muted: #8A8D93;
-    --hair: #EAEAEC;
-    --grid: #F1F1F3;
-    --studio: #A85D14;
-    --apartment: #2A78D6;
-    --studio-soft: rgba(168, 93, 20, .08);
-  }
-  * { box-sizing: border-box; }
-  html { background: var(--white); }
-  body {
-    margin: 0; padding: 0;
-    background: var(--white); color: var(--ink);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-  }
-  .page { max-width: 920px; margin: 0 auto; padding: 0 1.25rem 5rem; }
-  .topbar {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 1.4rem 0 1.2rem; border-bottom: 1px solid var(--hair);
-    font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
-  }
-  .topbar .brand { color: var(--ink); font-weight: 650; }
-  header.hero { padding: 3.2rem 0 2.6rem; }
-  .eyebrow { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--studio); font-weight: 650; margin: 0 0 .9rem; }
-  h1 {
-    font-size: clamp(1.7rem, 4.5vw, 2.6rem); font-weight: 650; letter-spacing: -.02em;
-    line-height: 1.12; margin: 0 0 .8rem; text-wrap: balance; max-width: 30ch;
-  }
-  .lede { color: var(--ink-2); font-size: .95rem; max-width: 62ch; margin: 0; }
-  .kpis {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    border-top: 1px solid var(--ink); margin-bottom: 3.4rem;
-  }
-  .kpi { padding: 1.1rem 1.4rem 1.2rem 0; border-top: 2px solid transparent; margin-top: -1px; }
-  .kpi.lead { border-top-color: var(--studio); }
-  .kpi .lbl { display: block; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .35rem; }
-  .kpi .val { font-size: 2rem; font-weight: 300; letter-spacing: -.02em; line-height: 1.1; }
-  .kpi.lead .val { font-weight: 650; }
-  .kpi .val small { font-size: .85rem; font-weight: 400; color: var(--muted); }
-  .kpi .cap { display: block; font-size: .74rem; color: var(--muted); margin-top: .3rem; }
-  section { margin-bottom: 3.4rem; }
-  .sect-head { display: flex; align-items: baseline; gap: .8rem; margin-bottom: .4rem; }
-  h2 { font-size: 1.05rem; font-weight: 650; letter-spacing: -.01em; margin: 0; }
-  .sect-note { font-size: .8rem; color: var(--muted); margin: 0 0 1.4rem; max-width: 70ch; }
-  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem 3rem; }
-  .chart h3 { font-size: .82rem; font-weight: 650; margin: 0 0 .15rem; }
-  .chart .note { font-size: .74rem; color: var(--muted); margin: 0 0 .8rem; }
-  .legend { display: flex; gap: 1.1rem; font-size: .74rem; color: var(--ink-2); margin-top: .5rem; }
-  .legend span { display: inline-flex; align-items: center; gap: .35rem; }
-  .sw { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
-  .sw.studio { background: var(--studio); } .sw.apartment { background: var(--apartment); }
-  svg text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  .tablewrap { overflow-x: auto; }
-  table { border-collapse: collapse; width: 100%; font-size: .85rem; min-width: 560px; }
-  th {
-    text-align: left; font-size: .64rem; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--muted); font-weight: 650; padding: .55rem .7rem .55rem 0;
-    border-bottom: 1px solid var(--ink);
-  }
-  td { padding: .5rem .7rem .5rem 0; border-bottom: 1px solid var(--hair); }
-  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  tr.sub td { font-weight: 650; }
-  tr.month td { font-weight: 650; color: var(--studio); padding-top: 1rem; }
-  .pill {
-    display: inline-block; font-size: .7rem; font-weight: 650; border-radius: 999px;
-    padding: .05rem .55rem; background: var(--studio-soft); color: var(--studio);
-  }
-  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: .45rem; vertical-align: 1px; }
-  .grand {
-    display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .5rem;
-    border-top: 2px solid var(--ink); border-bottom: 1px solid var(--hair);
-    padding: 1.1rem 0; margin-top: 1.6rem;
-  }
-  .grand .t { font-weight: 650; }
-  .grand .t small { font-weight: 400; color: var(--muted); font-size: .76rem; }
-  .grand .v { font-size: 1.7rem; font-weight: 650; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-  details { border-top: 1px solid var(--hair); }
-  summary {
-    cursor: pointer; font-weight: 650; font-size: .92rem; padding: 1rem 0;
-    list-style-position: inside; color: var(--ink);
-  }
-  summary:hover { color: var(--studio); }
-  summary:focus-visible { outline: 2px solid var(--studio); outline-offset: 2px; }
-  details .tablewrap { padding-bottom: 1.2rem; }
-  footer {
-    border-top: 1px solid var(--hair); padding-top: 1.4rem;
-    font-size: .74rem; color: var(--muted);
-  }
-  footer h3 { font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 .6rem; color: var(--ink-2); }
-  footer ul { margin: 0 0 1.4rem; padding-left: 1.05rem; }
-  footer li { margin-bottom: .25rem; max-width: 90ch; }
-  footer .sig { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
-  #tip {
-    position: fixed; pointer-events: none; z-index: 10; display: none;
-    background: var(--ink); color: var(--white); font-size: .76rem;
-    padding: .45rem .65rem; border-radius: 5px; max-width: 250px; line-height: 1.45;
-  }
-  #tip b { font-variant-numeric: tabular-nums; }
-  @media print {
-    .topbar, #tip { display: none; }
-    details { border: none; } summary { display: none; }
-    details > .tablewrap { display: block; }
-  }
-</style>
+<title>Kundenportal · Hostflow</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%2317181A%22/><text x=%2250%22 y=%2272%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22>h</text></svg>">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<div class="page">
-
-  <div class="topbar">
-    <span class="brand">Hostflow</span>
-    <span>Abrechnung Objektmanagement</span>
+<div class="login-wrap">
+  <div class="login-card">
+    <img class="logo" src="assets/logo.png" alt="Hostflow">
+    <h1>Kundenportal</h1>
+    <p class="sub">Melden Sie sich mit Ihren Zugangsdaten an, um Ihre Abrechnungen einzusehen.</p>
+    <form id="loginform" autocomplete="off">
+      <div class="field">
+        <label for="username">Benutzername</label>
+        <input id="username" name="username" type="text" autocomplete="username" required autofocus>
+      </div>
+      <div class="field">
+        <label for="code">Zahlencode</label>
+        <input id="code" name="code" type="password" inputmode="numeric" pattern="[0-9]*" autocomplete="current-password" required>
+      </div>
+      <button class="btn" id="loginbtn" type="submit">Anmelden</button>
+      <p class="error" id="error">Anmeldung fehlgeschlagen. Bitte Benutzername und Zahlencode prüfen.</p>
+    </form>
   </div>
-
-  <header class="hero">
-    <p class="eyebrow">2. Quartal 2026 · April – Juni</p>
-    <h1>Provisionsabrechnung<br>B&amp;B Brig by KaffeeKlatsch</h1>
-    <p class="lede">Für KaffeeKlatsch Wallis AG, Brig — Studio und Apartment (1 Schlafzimmer, Balkon &amp; Bergblick), vermarktet über Booking.com und Airbnb. Alle Beträge in CHF, exkl. allfälliger MwSt.</p>
-  </header>
-
-  <div class="kpis">
-    <div class="kpi lead"><span class="lbl">Provision Q2 2026</span><span class="val"><small>CHF</small> 849.45</span><span class="cap">exakt 849.47, gerundet auf 5 Rp.</span></div>
-    <div class="kpi"><span class="lbl">Umsatz brutto</span><span class="val">14'178.43</span><span class="cap">vor Portal-Kommission</span></div>
-    <div class="kpi"><span class="lbl">Buchungen</span><span class="val">31</span><span class="cap">16 Booking.com · 15 Airbnb</span></div>
-    <div class="kpi"><span class="lbl">Provisionsbasis</span><span class="val">8'666.59</span><span class="cap">nach Kommission &amp; Reinigung</span></div>
-  </div>
-
-  <section>
-    <div class="charts">
-      <div class="chart">
-        <h3>Bruttoumsatz pro Monat und Objekt</h3>
-        <p class="note">Gestrichelte Linie: Schwelle CHF 1'600.</p>
-        <div id="chart-umsatz"></div>
-        <div class="legend"><span><i class="sw studio"></i>Studio</span><span><i class="sw apartment"></i>Apartment</span></div>
-      </div>
-      <div class="chart">
-        <h3>Provision pro Monat</h3>
-        <p class="note">Anteile Studio und Apartment, Total beschriftet.</p>
-        <div id="chart-provision"></div>
-        <div class="legend"><span><i class="sw studio"></i>Studio</span><span><i class="sw apartment"></i>Apartment</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="sect-head"><h2>Monatsübersicht</h2></div>
-    <div class="tablewrap">
-      <table>
-        <thead>
-          <tr><th>Monat / Objekt</th><th class="num">Buchungen</th><th class="num">Umsatz brutto</th><th class="num">Provisionsbasis</th><th class="num">Provision</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><i class="dot" style="background:var(--studio)"></i>April · Studio</td><td class="num">2</td><td class="num">634.76</td><td class="num">344.73</td><td class="num">17.24</td></tr>
-          <tr><td><i class="dot" style="background:var(--apartment)"></i>April · Apartment</td><td class="num">5</td><td class="num">2'603.44</td><td class="num">1'572.81</td><td class="num">157.29</td></tr>
-          <tr class="sub"><td>Total April</td><td class="num">7</td><td class="num">3'238.20</td><td class="num">1'917.54</td><td class="num">174.53</td></tr>
-          <tr><td><i class="dot" style="background:var(--studio)"></i>Mai · Studio</td><td class="num">9</td><td class="num">3'079.32</td><td class="num">1'711.69</td><td class="num">171.18</td></tr>
-          <tr><td><i class="dot" style="background:var(--apartment)"></i>Mai · Apartment</td><td class="num">4</td><td class="num">2'835.58</td><td class="num">1'891.08</td><td class="num">189.12</td></tr>
-          <tr class="sub"><td>Total Mai</td><td class="num">13</td><td class="num">5'914.90</td><td class="num">3'602.77</td><td class="num">360.30</td></tr>
-          <tr><td><i class="dot" style="background:var(--studio)"></i>Juni · Studio</td><td class="num">8</td><td class="num">3'321.93</td><td class="num">2'089.56</td><td class="num">208.96</td></tr>
-          <tr><td><i class="dot" style="background:var(--apartment)"></i>Juni · Apartment</td><td class="num">3</td><td class="num">1'703.40</td><td class="num">1'056.72</td><td class="num">105.68</td></tr>
-          <tr class="sub"><td>Total Juni</td><td class="num">11</td><td class="num">5'025.33</td><td class="num">3'146.28</td><td class="num">314.64</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="grand">
-      <span class="t">Total Provision April – Juni 2026 <small>(exakt 849.47, gerundet auf 5 Rp.)</small></span>
-      <span class="v">CHF 849.45</span>
-    </div>
-  </section>
-
-  <section>
-    <details>
-      <summary>Details pro Buchung (31 Buchungen)</summary>
-      <div class="tablewrap">
-        <table>
-          <thead>
-            <tr><th>Gast</th><th>Objekt · Portal</th><th>Aufenthalt</th><th class="num">Brutto</th><th class="num">Kommission</th><th class="num">Pauschale</th><th class="num">Basis</th><th class="num">Provision</th></tr>
-          </thead>
-          <tbody id="detailrows"></tbody>
-        </table>
-      </div>
-    </details>
-  </section>
-
-  <footer>
-    <div class="sig">
-      <span>Hostflow · jan@hostflow.ch</span>
-      <span>Abrechnung 2. Quartal 2026 · erstellt 03.07.2026</span>
-    </div>
-  </footer>
-
+  <p class="login-foot">© 2026 Hostflow · jan@hostflow.ch</p>
 </div>
-<div id="tip" role="presentation"></div>
-
 <script>
-const MONTHS = ["April", "Mai", "Juni"];
-const UMSATZ = { Studio: [634.76, 3079.32, 3321.93], Apartment: [2603.44, 2835.58, 1703.40] };
-const SATZ   = { Studio: ["5 %", "10 %", "10 %"], Apartment: ["10 %", "10 %", "10 %"] };
-const PROV   = { Studio: [17.24, 171.18, 208.96], Apartment: [157.29, 189.12, 105.68] };
-const COLOR  = { Studio: "#A85D14", Apartment: "#2A78D6" };
-const INK = "#1A1B1E", INK2 = "#55585E", MUTED = "#8A8D93", GRID = "#F1F1F3", AXIS = "#D6D7DA";
-
-const BOOKINGS = [
- ["April 2026", null],
- ["Michel Corpataux","Studio","Booking.com","03.04.–06.04.",342.76,41.13,100,201.63,10.08],
- ["Markus Spillmann","Studio","Airbnb","21.04.–23.04.",292.00,48.90,100,143.10,7.16],
- ["Nicole Meier","Apartment","Airbnb","02.04.–04.04.",481.20,80.65,130,270.55,27.06],
- ["Suzanne Caliendo","Apartment","Booking.com","06.04.–08.04.",395.68,47.48,130,218.20,21.82],
- ["Johannes Schneider","Apartment","Booking.com","12.04.–16.04.",482.24,57.87,130,294.37,29.44],
- ["Fabian Jenelten","Apartment","Booking.com","18.04.–20.04.",291.12,34.93,130,126.19,12.62],
- ["Russell Stott","Apartment","Airbnb","21.04.–28.04.",953.20,159.70,130,663.50,66.35],
- ["Mai 2026", null],
- ["Bella Abrego","Studio","Airbnb","27.04.–01.05.",624.00,104.55,100,419.45,41.95],
- ["Lionel Müller","Studio","Airbnb","01.05.–03.05.",400.00,67.00,100,233.00,23.30],
- ["Richard Wadsworth","Studio","Airbnb","14.05.–16.05.",268.00,44.90,100,123.10,12.31],
- ["Manuela Schön Bachmann","Studio","Booking.com","16.05.–18.05.",319.02,38.28,100,180.74,18.07],
- ["David Kirchner","Studio","Booking.com","19.05.–21.05.",377.68,45.32,100,232.36,23.24],
- ["Melody Fanning","Studio","Airbnb","21.05.–22.05.",190.00,31.85,100,58.15,5.82],
- ["Frank Diener","Studio","Airbnb","22.05.–24.05.",280.00,46.90,100,133.10,13.31],
- ["Paul Warpeha","Studio","Airbnb","25.05.–27.05.",301.60,50.55,100,151.05,15.11],
- ["Christina Siffert","Studio","Booking.com","29.05.–31.05.",319.02,38.28,100,180.74,18.07],
- ["Dóra Domboróczky","Apartment","Airbnb","30.04.–03.05.",537.00,90.00,130,317.00,31.70],
- ["Veronique Mauron Frank","Apartment","Booking.com","14.05.–17.05.",676.00,81.12,130,464.88,46.49],
- ["Elisabeth Reutimann","Apartment","Airbnb","22.05.–28.05.",1234.00,206.75,130,897.25,89.73],
- ["Uli Kausche","Apartment","Booking.com","29.05.–31.05.",388.58,46.63,130,211.95,21.20],
- ["Juni 2026", null],
- ["Pei Zhou","Studio","Airbnb","01.06.–03.06.",310.00,51.95,100,158.05,15.81],
- ["Ronald Cordier","Studio","Booking.com","04.06.–07.06.",465.04,55.80,100,309.24,30.92],
- ["Leanne O'Hara","Studio","Airbnb","10.06.–12.06.",400.00,67.00,100,233.00,23.30],
- ["Chiu Kwan Lam","Studio","Booking.com","13.06.–14.06.",219.34,26.32,100,93.02,9.30],
- ["Kai Choy Wong","Studio","Booking.com","14.06.–18.06.",474.40,56.93,100,317.47,31.75],
- ["Katrin Koyro","Studio","Booking.com","19.06.–20.06.",237.28,28.47,100,108.81,10.88],
- ["Elisabeth Schamber","Studio","Booking.com","20.06.–27.06.",1006.36,120.76,100,785.60,78.56],
- ["Tonacie Courtiade","Studio","Booking.com","27.06.–28.06.",209.51,25.14,100,84.37,8.44],
- ["Nikki Zijderveld","Apartment","Airbnb","16.06.–19.06.",516.40,86.55,130,299.85,29.99],
- ["Jenny VansCoy","Apartment","Airbnb","19.06.–22.06.",583.00,97.65,130,355.35,35.54],
- ["Maria Luisa Martinez Oliver","Apartment","Booking.com","23.06.–27.06.",604.00,72.48,130,401.52,40.15],
-];
-
-const fmt = n => n.toLocaleString("de-CH", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(/’/g, "'");
-
-document.getElementById("detailrows").innerHTML = BOOKINGS.map(b => {
-  if (b[1] === null) return `<tr class="month"><td colspan="8">${b[0]}</td></tr>`;
-  const [gast, obj, portal, zeit, br, ko, pa, ba, pr] = b;
-  return `<tr><td>${gast}</td><td><i class="dot" style="background:${COLOR[obj]}"></i>${obj} · ${portal}</td><td>${zeit}</td>` +
-    `<td class="num">${fmt(br)}</td><td class="num">${fmt(ko)}</td><td class="num">${fmt(pa)}</td><td class="num">${fmt(ba)}</td><td class="num">${fmt(pr)}</td></tr>`;
-}).join("");
-
-const tip = document.getElementById("tip");
-function showTip(evt, html) {
-  tip.innerHTML = html; tip.style.display = "block";
-  const x = Math.min(evt.clientX + 14, window.innerWidth - 270);
-  tip.style.left = x + "px"; tip.style.top = (evt.clientY + 14) + "px";
-}
-function hideTip() { tip.style.display = "none"; }
-
-const NS = "http://www.w3.org/2000/svg";
-function el(name, attrs, parent) {
-  const e = document.createElementNS(NS, name);
-  for (const k in attrs) e.setAttribute(k, attrs[k]);
-  if (parent) parent.appendChild(e);
-  return e;
-}
-
-function barChart(mount, series, opts) {
-  const W = 440, H = 250, padL = 44, padR = 8, padT = 14, padB = 26;
-  const plotW = W - padL - padR, plotH = H - padT - padB;
-  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", role: "img", "aria-label": opts.aria });
-  const yMax = opts.yMax, ticks = opts.ticks;
-  const y = v => padT + plotH - (v / yMax) * plotH;
-
-  ticks.forEach(t => {
-    el("line", { x1: padL, x2: W - padR, y1: y(t), y2: y(t), stroke: GRID, "stroke-width": 1 }, svg);
-    const lbl = el("text", { x: padL - 6, y: y(t) + 3, "text-anchor": "end", "font-size": 9, fill: MUTED }, svg);
-    lbl.textContent = t >= 1000 ? (t / 1000).toLocaleString("de-CH") + "k" : t;
-  });
-  el("line", { x1: padL, x2: W - padR, y1: y(0), y2: y(0), stroke: AXIS, "stroke-width": 1 }, svg);
-
-  const groupW = plotW / 3;
-  MONTHS.forEach((m, i) => {
-    const t = el("text", { x: padL + groupW * i + groupW / 2, y: H - 8, "text-anchor": "middle", "font-size": 10.5, fill: INK2 }, svg);
-    t.textContent = m;
-  });
-
-  if (opts.stacked) {
-    const barW = 46;
-    MONTHS.forEach((m, i) => {
-      const cx = padL + groupW * i + groupW / 2;
-      let acc = 0;
-      ["Studio", "Apartment"].forEach((obj, si) => {
-        const v = series[obj][i];
-        const y1 = y(acc + v), h = y(acc) - y(acc + v);
-        const isTop = si === 1;
-        const r = el("rect", { x: cx - barW / 2, y: y1 + (isTop ? 0 : 2), width: barW,
-          height: Math.max(h - 2, 1), rx: isTop ? 4 : 0, fill: COLOR[obj] }, svg);
-        r.addEventListener("mousemove", e => showTip(e, `<b>${m} · ${obj}</b><br>Provision: <b>CHF ${fmt(v)}</b><br>Satz: ${SATZ[obj][i]}`));
-        r.addEventListener("mouseleave", hideTip);
-        acc += v;
-      });
-      const tl = el("text", { x: cx, y: y(acc) - 5, "text-anchor": "middle", "font-size": 10, "font-weight": 650, fill: INK }, svg);
-      tl.textContent = fmt(acc);
+const form = document.getElementById("loginform");
+const btn = document.getElementById("loginbtn");
+const err = document.getElementById("error");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  err.classList.remove("show");
+  btn.disabled = true; btn.textContent = "Anmelden…";
+  try {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: document.getElementById("username").value,
+        code: document.getElementById("code").value,
+      }),
     });
-  } else {
-    const barW = 34, gap = 6;
-    MONTHS.forEach((m, i) => {
-      const cx = padL + groupW * i + groupW / 2;
-      ["Studio", "Apartment"].forEach((obj, si) => {
-        const v = series[obj][i];
-        const x = cx - (barW + gap / 2) + si * (barW + gap);
-        const r = el("rect", { x, y: y(v), width: barW, height: y(0) - y(v), rx: 4, fill: COLOR[obj] }, svg);
-        r.addEventListener("mousemove", e => showTip(e, `<b>${m} · ${obj}</b><br>Umsatz brutto: <b>CHF ${fmt(v)}</b><br>` +
-          `${v > 1600 ? "über" : "unter"} Schwelle → Satz ${SATZ[obj][i]}`));
-        r.addEventListener("mouseleave", hideTip);
-        const tl = el("text", { x: x + barW / 2, y: y(v) - 4, "text-anchor": "middle", "font-size": 8.5, fill: INK2 }, svg);
-        tl.textContent = Math.round(v).toLocaleString("de-CH").replace(/’/g, "'");
-      });
-    });
-    el("line", { x1: padL, x2: W - padR, y1: y(1600), y2: y(1600), stroke: COLOR.Studio, "stroke-width": 1.5, "stroke-dasharray": "5 4" }, svg);
-    const st = el("text", { x: W - padR, y: y(1600) - 5, "text-anchor": "end", "font-size": 9, "font-weight": 650, fill: COLOR.Studio }, svg);
-    st.textContent = "1'600";
+    if (res.ok) { location.href = "/portal"; return; }
+    err.classList.add("show");
+  } catch {
+    err.textContent = "Verbindung fehlgeschlagen. Bitte später erneut versuchen.";
+    err.classList.add("show");
   }
-  mount.appendChild(svg);
-}
-
-barChart(document.getElementById("chart-umsatz"), UMSATZ,
-  { yMax: 3500, ticks: [0, 1000, 2000, 3000], aria: "Bruttoumsatz pro Monat, Studio und Apartment, mit Schwelle 1600 Franken" });
-barChart(document.getElementById("chart-provision"), PROV,
-  { yMax: 400, ticks: [0, 100, 200, 300, 400], stacked: true, aria: "Provision pro Monat, gestapelt nach Studio und Apartment" });
+  btn.disabled = false; btn.textContent = "Anmelden";
+});
+// Bereits angemeldet? Direkt weiterleiten.
+fetch("/api/data").then(r => { if (r.ok) location.href = "/portal"; }).catch(() => {});
 </script>
 </body>
 </html>
