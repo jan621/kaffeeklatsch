@@ -1,0 +1,235 @@
+<title>Provisionsabrechnung Q2 2026 · KaffeeKlatsch</title>
+<style>
+  :root {
+    --paper: #FBF8F4;
+    --ink: #2B2118;
+    --muted: #6E5F51;
+    --line: #E4DACD;
+    --line-soft: #EFE8DE;
+    --accent: #7A4A21;
+    --accent-ink: #5C3717;
+    --card: #FFFFFF;
+    --tile: #F3EDE4;
+    --total-bg: #2B2118;
+    --total-ink: #FBF8F4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #211B15;
+      --ink: #EDE5DA;
+      --muted: #A3968A;
+      --line: #3D342A;
+      --line-soft: #322A21;
+      --accent: #C89158;
+      --accent-ink: #D9A76F;
+      --card: #2A231C;
+      --tile: #2E261E;
+      --total-bg: #EDE5DA;
+      --total-ink: #211B15;
+    }
+  }
+  :root[data-theme="light"] {
+    --paper: #FBF8F4; --ink: #2B2118; --muted: #6E5F51; --line: #E4DACD;
+    --line-soft: #EFE8DE; --accent: #7A4A21; --accent-ink: #5C3717;
+    --card: #FFFFFF; --tile: #F3EDE4; --total-bg: #2B2118; --total-ink: #FBF8F4;
+  }
+  :root[data-theme="dark"] {
+    --paper: #211B15; --ink: #EDE5DA; --muted: #A3968A; --line: #3D342A;
+    --line-soft: #322A21; --accent: #C89158; --accent-ink: #D9A76F;
+    --card: #2A231C; --tile: #2E261E; --total-bg: #EDE5DA; --total-ink: #211B15;
+  }
+  html { background: var(--paper); }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.55;
+    margin: 0;
+    padding: 3rem 1.25rem 4rem;
+  }
+  .sheet { max-width: 860px; margin: 0 auto; }
+  .eyebrow {
+    font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin: 0 0 .5rem;
+  }
+  h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400; font-size: clamp(1.7rem, 4vw, 2.3rem);
+    line-height: 1.15; margin: 0 0 1.5rem; text-wrap: balance;
+  }
+  .parties {
+    display: flex; flex-wrap: wrap; gap: 1rem 3rem;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    padding: 1rem 0; margin-bottom: 2.25rem; font-size: .9rem;
+  }
+  .parties div span { display: block; }
+  .parties .lbl { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: .75rem; margin-bottom: 2.5rem; }
+  .tile { background: var(--tile); border-radius: 6px; padding: .9rem 1rem; }
+  .tile .lbl { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: .2rem; }
+  .tile .val { font-size: 1.35rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .tile .val small { font-size: .8rem; font-weight: 500; color: var(--muted); }
+  .tile.total { background: var(--total-bg); color: var(--total-ink); }
+  .tile.total .lbl { color: var(--total-ink); opacity: .65; }
+  h2 {
+    font-family: Georgia, "Times New Roman", serif; font-weight: 400;
+    font-size: 1.25rem; margin: 2.5rem 0 .35rem;
+  }
+  .h2-note { color: var(--muted); font-size: .85rem; margin: 0 0 1rem; }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: .875rem; min-width: 560px; }
+  th {
+    text-align: left; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600; padding: .6rem .75rem;
+    border-bottom: 1px solid var(--line);
+  }
+  td { padding: .5rem .75rem; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.rate { text-align: center; }
+  tr.sub td { font-weight: 650; background: var(--tile); }
+  tr.month td { font-weight: 650; }
+  .badge {
+    display: inline-block; font-size: .68rem; font-weight: 600; letter-spacing: .04em;
+    border: 1px solid var(--line); border-radius: 999px; padding: .05rem .5rem;
+    color: var(--muted); white-space: nowrap;
+  }
+  .rate-pill {
+    display: inline-block; font-size: .72rem; font-weight: 650;
+    border-radius: 999px; padding: .05rem .55rem;
+    color: var(--accent-ink); background: color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+  .grand {
+    display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .5rem;
+    background: var(--total-bg); color: var(--total-ink);
+    border-radius: 6px; padding: 1rem 1.25rem; margin-top: 1.5rem;
+  }
+  .grand .t { font-family: Georgia, serif; font-size: 1.05rem; }
+  .grand .v { font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .notes { margin-top: 2.75rem; border-top: 1px solid var(--line); padding-top: 1.25rem; }
+  .notes h3 { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 .6rem; }
+  .notes ul { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: .82rem; }
+  .notes li { margin-bottom: .3rem; }
+</style>
+
+<div class="sheet">
+  <p class="eyebrow">Abrechnung Objektmanagement · 2. Quartal 2026</p>
+  <h1>Provisionsabrechnung B&amp;B Brig by KaffeeKlatsch<br>April – Juni 2026</h1>
+
+  <div class="parties">
+    <div><span class="lbl">Kunde</span><span>KaffeeKlatsch Wallis AG, Brig</span></div>
+    <div><span class="lbl">Objekte</span><span>Studio &amp; Apartment (1 Schlafzimmer, Balkon &amp; Bergblick)</span></div>
+    <div><span class="lbl">Portale</span><span>Booking.com &amp; Airbnb</span></div>
+    <div><span class="lbl">Währung</span><span>CHF, exkl. allfälliger MwSt.</span></div>
+  </div>
+
+  <div class="tiles">
+    <div class="tile total"><span class="lbl">Provision Q2 2026</span><span class="val">CHF 849.45</span></div>
+    <div class="tile"><span class="lbl">Umsatz brutto</span><span class="val">14'178.43 <small>CHF</small></span></div>
+    <div class="tile"><span class="lbl">Buchungen</span><span class="val">31</span></div>
+    <div class="tile"><span class="lbl">Provisionsbasis</span><span class="val">8'666.59 <small>CHF</small></span></div>
+  </div>
+
+  <h2>Monatsübersicht</h2>
+  <p class="h2-note">Satz pro Objekt und Monat: bis CHF 1'600 Brutto-Monatsumsatz 5 %, darüber 10 %.</p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Monat / Objekt</th>
+          <th class="num">Buchungen</th>
+          <th class="num">Umsatz brutto</th>
+          <th class="num">Provisionsbasis</th>
+          <th class="rate">Satz</th>
+          <th class="num">Provision</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>April · Studio</td><td class="num">2</td><td class="num">634.76</td><td class="num">344.73</td><td class="rate"><span class="rate-pill">5 %</span></td><td class="num">17.24</td></tr>
+        <tr><td>April · Apartment</td><td class="num">5</td><td class="num">2'603.44</td><td class="num">1'572.81</td><td class="rate"><span class="rate-pill">10 %</span></td><td class="num">157.29</td></tr>
+        <tr class="sub"><td>Total April</td><td class="num">7</td><td class="num">3'238.20</td><td class="num">1'917.54</td><td class="rate"></td><td class="num">174.53</td></tr>
+        <tr><td>Mai · Studio</td><td class="num">9</td><td class="num">3'079.32</td><td class="num">1'711.69</td><td class="rate"><span class="rate-pill">10 %</span></td><td class="num">171.18</td></tr>
+        <tr><td>Mai · Apartment</td><td class="num">4</td><td class="num">2'835.58</td><td class="num">1'891.08</td><td class="rate"><span class="rate-pill">10 %</span></td><td class="num">189.12</td></tr>
+        <tr class="sub"><td>Total Mai</td><td class="num">13</td><td class="num">5'914.90</td><td class="num">3'602.77</td><td class="rate"></td><td class="num">360.30</td></tr>
+        <tr><td>Juni · Studio</td><td class="num">8</td><td class="num">3'321.93</td><td class="num">2'089.56</td><td class="rate"><span class="rate-pill">10 %</span></td><td class="num">208.96</td></tr>
+        <tr><td>Juni · Apartment</td><td class="num">3</td><td class="num">1'703.40</td><td class="num">1'056.72</td><td class="rate"><span class="rate-pill">10 %</span></td><td class="num">105.68</td></tr>
+        <tr class="sub"><td>Total Juni</td><td class="num">11</td><td class="num">5'025.33</td><td class="num">3'146.28</td><td class="rate"></td><td class="num">314.64</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grand">
+    <span class="t">Total Provision April – Juni 2026 <small style="opacity:.65;font-size:.75rem;">(exakt 849.47, gerundet auf 5 Rp.)</small></span>
+    <span class="v">CHF 849.45</span>
+  </div>
+
+  <h2>Details pro Buchung</h2>
+  <p class="h2-note">Provisionsbasis = Buchungswert ./. Portal-Kommission ./. Reinigungspauschale (Studio CHF 100, Apartment CHF 130).</p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Gast</th>
+          <th>Objekt / Portal</th>
+          <th>Aufenthalt</th>
+          <th class="num">Brutto</th>
+          <th class="num">Kommission</th>
+          <th class="num">Pauschale</th>
+          <th class="num">Basis</th>
+          <th class="num">Provision</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="month"><td colspan="8">April 2026</td></tr>
+        <tr><td>Michel Corpataux</td><td>Studio · <span class="badge">Booking.com</span></td><td>03.04.–06.04.</td><td class="num">342.76</td><td class="num">41.13</td><td class="num">100.00</td><td class="num">201.63</td><td class="num">10.08</td></tr>
+        <tr><td>Markus Spillmann</td><td>Studio · <span class="badge">Airbnb</span></td><td>21.04.–23.04.</td><td class="num">292.00</td><td class="num">48.90</td><td class="num">100.00</td><td class="num">143.10</td><td class="num">7.16</td></tr>
+        <tr><td>Nicole Meier</td><td>Apartment · <span class="badge">Airbnb</span></td><td>02.04.–04.04.</td><td class="num">481.20</td><td class="num">80.65</td><td class="num">130.00</td><td class="num">270.55</td><td class="num">27.06</td></tr>
+        <tr><td>Suzanne Caliendo</td><td>Apartment · <span class="badge">Booking.com</span></td><td>06.04.–08.04.</td><td class="num">395.68</td><td class="num">47.48</td><td class="num">130.00</td><td class="num">218.20</td><td class="num">21.82</td></tr>
+        <tr><td>Johannes Schneider</td><td>Apartment · <span class="badge">Booking.com</span></td><td>12.04.–16.04.</td><td class="num">482.24</td><td class="num">57.87</td><td class="num">130.00</td><td class="num">294.37</td><td class="num">29.44</td></tr>
+        <tr><td>Fabian Jenelten</td><td>Apartment · <span class="badge">Booking.com</span></td><td>18.04.–20.04.</td><td class="num">291.12</td><td class="num">34.93</td><td class="num">130.00</td><td class="num">126.19</td><td class="num">12.62</td></tr>
+        <tr><td>Russell Stott</td><td>Apartment · <span class="badge">Airbnb</span></td><td>21.04.–28.04.</td><td class="num">953.20</td><td class="num">159.70</td><td class="num">130.00</td><td class="num">663.50</td><td class="num">66.35</td></tr>
+
+        <tr class="month"><td colspan="8">Mai 2026</td></tr>
+        <tr><td>Bella Abrego</td><td>Studio · <span class="badge">Airbnb</span></td><td>27.04.–01.05.</td><td class="num">624.00</td><td class="num">104.55</td><td class="num">100.00</td><td class="num">419.45</td><td class="num">41.95</td></tr>
+        <tr><td>Lionel Müller</td><td>Studio · <span class="badge">Airbnb</span></td><td>01.05.–03.05.</td><td class="num">400.00</td><td class="num">67.00</td><td class="num">100.00</td><td class="num">233.00</td><td class="num">23.30</td></tr>
+        <tr><td>Richard Wadsworth</td><td>Studio · <span class="badge">Airbnb</span></td><td>14.05.–16.05.</td><td class="num">268.00</td><td class="num">44.90</td><td class="num">100.00</td><td class="num">123.10</td><td class="num">12.31</td></tr>
+        <tr><td>Manuela Schön Bachmann</td><td>Studio · <span class="badge">Booking.com</span></td><td>16.05.–18.05.</td><td class="num">319.02</td><td class="num">38.28</td><td class="num">100.00</td><td class="num">180.74</td><td class="num">18.07</td></tr>
+        <tr><td>David Kirchner</td><td>Studio · <span class="badge">Booking.com</span></td><td>19.05.–21.05.</td><td class="num">377.68</td><td class="num">45.32</td><td class="num">100.00</td><td class="num">232.36</td><td class="num">23.24</td></tr>
+        <tr><td>Melody Fanning</td><td>Studio · <span class="badge">Airbnb</span></td><td>21.05.–22.05.</td><td class="num">190.00</td><td class="num">31.85</td><td class="num">100.00</td><td class="num">58.15</td><td class="num">5.82</td></tr>
+        <tr><td>Frank Diener</td><td>Studio · <span class="badge">Airbnb</span></td><td>22.05.–24.05.</td><td class="num">280.00</td><td class="num">46.90</td><td class="num">100.00</td><td class="num">133.10</td><td class="num">13.31</td></tr>
+        <tr><td>Paul Warpeha</td><td>Studio · <span class="badge">Airbnb</span></td><td>25.05.–27.05.</td><td class="num">301.60</td><td class="num">50.55</td><td class="num">100.00</td><td class="num">151.05</td><td class="num">15.11</td></tr>
+        <tr><td>Christina Siffert</td><td>Studio · <span class="badge">Booking.com</span></td><td>29.05.–31.05.</td><td class="num">319.02</td><td class="num">38.28</td><td class="num">100.00</td><td class="num">180.74</td><td class="num">18.07</td></tr>
+        <tr><td>Dóra Domboróczky</td><td>Apartment · <span class="badge">Airbnb</span></td><td>30.04.–03.05.</td><td class="num">537.00</td><td class="num">90.00</td><td class="num">130.00</td><td class="num">317.00</td><td class="num">31.70</td></tr>
+        <tr><td>Veronique Mauron Frank</td><td>Apartment · <span class="badge">Booking.com</span></td><td>14.05.–17.05.</td><td class="num">676.00</td><td class="num">81.12</td><td class="num">130.00</td><td class="num">464.88</td><td class="num">46.49</td></tr>
+        <tr><td>Elisabeth Reutimann</td><td>Apartment · <span class="badge">Airbnb</span></td><td>22.05.–28.05.</td><td class="num">1'234.00</td><td class="num">206.75</td><td class="num">130.00</td><td class="num">897.25</td><td class="num">89.73</td></tr>
+        <tr><td>Uli Kausche</td><td>Apartment · <span class="badge">Booking.com</span></td><td>29.05.–31.05.</td><td class="num">388.58</td><td class="num">46.63</td><td class="num">130.00</td><td class="num">211.95</td><td class="num">21.20</td></tr>
+
+        <tr class="month"><td colspan="8">Juni 2026</td></tr>
+        <tr><td>Pei Zhou</td><td>Studio · <span class="badge">Airbnb</span></td><td>01.06.–03.06.</td><td class="num">310.00</td><td class="num">51.95</td><td class="num">100.00</td><td class="num">158.05</td><td class="num">15.81</td></tr>
+        <tr><td>Ronald Cordier</td><td>Studio · <span class="badge">Booking.com</span></td><td>04.06.–07.06.</td><td class="num">465.04</td><td class="num">55.80</td><td class="num">100.00</td><td class="num">309.24</td><td class="num">30.92</td></tr>
+        <tr><td>Leanne O'Hara</td><td>Studio · <span class="badge">Airbnb</span></td><td>10.06.–12.06.</td><td class="num">400.00</td><td class="num">67.00</td><td class="num">100.00</td><td class="num">233.00</td><td class="num">23.30</td></tr>
+        <tr><td>Chiu Kwan Lam</td><td>Studio · <span class="badge">Booking.com</span></td><td>13.06.–14.06.</td><td class="num">219.34</td><td class="num">26.32</td><td class="num">100.00</td><td class="num">93.02</td><td class="num">9.30</td></tr>
+        <tr><td>Kai Choy Wong</td><td>Studio · <span class="badge">Booking.com</span></td><td>14.06.–18.06.</td><td class="num">474.40</td><td class="num">56.93</td><td class="num">100.00</td><td class="num">317.47</td><td class="num">31.75</td></tr>
+        <tr><td>Katrin Koyro</td><td>Studio · <span class="badge">Booking.com</span></td><td>19.06.–20.06.</td><td class="num">237.28</td><td class="num">28.47</td><td class="num">100.00</td><td class="num">108.81</td><td class="num">10.88</td></tr>
+        <tr><td>Elisabeth Schamber</td><td>Studio · <span class="badge">Booking.com</span></td><td>20.06.–27.06.</td><td class="num">1'006.36</td><td class="num">120.76</td><td class="num">100.00</td><td class="num">785.60</td><td class="num">78.56</td></tr>
+        <tr><td>Tonacie Courtiade</td><td>Studio · <span class="badge">Booking.com</span></td><td>27.06.–28.06.</td><td class="num">209.51</td><td class="num">25.14</td><td class="num">100.00</td><td class="num">84.37</td><td class="num">8.44</td></tr>
+        <tr><td>Nikki Zijderveld</td><td>Apartment · <span class="badge">Airbnb</span></td><td>16.06.–19.06.</td><td class="num">516.40</td><td class="num">86.55</td><td class="num">130.00</td><td class="num">299.85</td><td class="num">29.99</td></tr>
+        <tr><td>Jenny VansCoy</td><td>Apartment · <span class="badge">Airbnb</span></td><td>19.06.–22.06.</td><td class="num">583.00</td><td class="num">97.65</td><td class="num">130.00</td><td class="num">355.35</td><td class="num">35.54</td></tr>
+        <tr><td>Maria Luisa Martinez Oliver</td><td>Apartment · <span class="badge">Booking.com</span></td><td>23.06.–27.06.</td><td class="num">604.00</td><td class="num">72.48</td><td class="num">130.00</td><td class="num">401.52</td><td class="num">40.15</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="notes">
+    <h3>Berechnungsgrundlagen &amp; Hinweise</h3>
+    <ul>
+      <li>Provisionssatz pro Objekt und Monat: Brutto-Monatsumsatz (vor Abzug der Portal-Kommission) bis CHF 1'600 → 5 %, über CHF 1'600 → 10 %.</li>
+      <li>Provisionsbasis pro Buchung: Buchungswert abzüglich Portal-Kommission und Reinigungspauschale (Studio CHF 100, Apartment CHF 130).</li>
+      <li>Airbnb zahlt netto aus (Servicegebühr bereits abgezogen); für den Schwellenwert massgebend sind die Bruttoeinkünfte.</li>
+      <li>Monatszuordnung nach Abreisedatum – entspricht der Rechnungsperiode von Booking.com.</li>
+      <li>Vier stornierte Booking.com-Buchungen (Betrag CHF 0) sind nicht berücksichtigt. Die Zahlungsgebühr von Booking.com wird nicht abgezogen.</li>
+      <li>Buchung C. Kolb (Abreise 01.04.) wurde bereits mit der März-Abrechnung erfasst; Buchung S. Passant (Abreise 03.07.) folgt mit der Juli-Abrechnung.</li>
+      <li>Quellen: Booking.com Reservation Statements &amp; Anreise-Übersicht 01.04.–30.06.2026, Airbnb-Auszahlungsübersicht April–Juni 2026.</li>
+    </ul>
+  </div>
+</div>
