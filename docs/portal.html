@@ -84,6 +84,64 @@ function activate(tab, tabs) {
   tab.render();
 }
 
+/* ---------- Kennzahlen: Auslastung, ADR, RevPAR ---------- */
+const fmtPct = x => (x * 100).toLocaleString("de-CH", { minimumFractionDigits: 1, maximumFractionDigits: 1 }).replace(/’/g, "'") + " %";
+const daysInMonth = (y, mIdx) => new Date(Date.UTC(y, mIdx + 1, 0)).getUTCDate();
+function parseStay(stay, year) {
+  const m = String(stay).match(/(\d{2})\.(\d{2})\.\D+?(\d{2})\.(\d{2})\./);
+  if (!m) return null;
+  let a = Date.UTC(year, +m[2] - 1, +m[1]);
+  let b = Date.UTC(year, +m[4] - 1, +m[3]);
+  if (b <= a) b = Date.UTC(year + 1, +m[4] - 1, +m[3]); // Jahreswechsel
+  return { in: a, out: b, nights: Math.round((b - a) / 86400000) };
+}
+function nightsInMonth(a, b, year, mIdx) {
+  let c = 0;
+  for (let t = a; t < b; t += 86400000) {
+    const d = new Date(t);
+    if (d.getUTCFullYear() === year && d.getUTCMonth() === mIdx) c++;
+  }
+  return c;
+}
+// Belegte Nächte + kalendergenau zugeteilter Umsatz eines Objekts in einem Kalendermonat.
+function perfMonthObject(q, monthKey, obj) {
+  const mIdx = parseInt(monthKey.slice(5), 10) - 1;
+  const avail = daysInMonth(q.year, mIdx);
+  let occ = 0, rev = 0;
+  for (const b of q.bookings) {
+    if (b.object !== obj) continue;
+    const s = parseStay(b.stay, q.year);
+    if (!s || !s.nights) continue;
+    const nim = nightsInMonth(s.in, s.out, q.year, mIdx);
+    if (!nim) continue;
+    occ += nim;
+    rev += b.gross * (nim / s.nights);
+  }
+  return { occ, avail, rev };
+}
+function perfCombine(list) {
+  const occ = list.reduce((s, p) => s + p.occ, 0);
+  const avail = list.reduce((s, p) => s + p.avail, 0);
+  const rev = list.reduce((s, p) => s + p.rev, 0);
+  return { occ, avail, rev, occupancy: avail ? occ / avail : 0, adr: occ ? rev / occ : 0, revpar: avail ? rev / avail : 0 };
+}
+function perfCard(title, rows) {
+  const wrap = document.createElement("div");
+  wrap.className = "card";
+  wrap.innerHTML = `<h2>${title}</h2>
+    <p class="note">Auslastung = belegte ÷ verfügbare Nächte · ADR = Ø Umsatz pro belegte Nacht (brutto) · RevPAR = Umsatz ÷ verfügbare Nacht. Nächte kalendergenau dem Monat zugeteilt.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Zeitraum / Objekt</th><th class="num">Nächte belegt</th><th class="num">Verfügbar</th><th class="num">Auslastung</th><th class="num">ADR</th><th class="num">RevPAR</th></tr></thead>
+      <tbody>${rows.map(r => {
+        const p = perfCombine([r.p]);
+        return `<tr${r.sub ? ' class="sub"' : ""}><td>${r.color ? `<i class="dot" style="background:${r.color}"></i>` : ""}${esc(r.label)}</td>` +
+          `<td class="num">${p.occ}</td><td class="num">${p.avail}</td><td class="num">${fmtPct(p.occupancy)}</td>` +
+          `<td class="num">${fmt(p.adr)}</td><td class="num">${fmt(p.revpar)}</td></tr>`;
+      }).join("")}</tbody>
+    </table></div>`;
+  return wrap;
+}
+
 /* ---------- Bausteine ---------- */
 function kpiRow(items) {
   const div = document.createElement("div");
@@ -225,9 +283,11 @@ function bookingsDetails(bookings) {
 /* ---------- Quartalsansicht ---------- */
 function renderQuarter(q) {
   const view = document.getElementById("view");
+  const occAll = perfCombine(q.months.flatMap(m => DATA.objects.map(o => perfMonthObject(q, m.key, o))));
   view.appendChild(kpiRow([
     { lbl: `Provision ${q.label}`, val: `<small>${DATA.currency}</small> ${fmt(q.totals.billed != null ? q.totals.billed : q.totals.provision)}`, cap: q.sublabel },
     { lbl: "Netto Eigentümer", val: `<small>${DATA.currency}</small> ${fmt(round2(q.totals.base - q.totals.provision))}`, cap: "nach Kommission, Reinigung & Provision" },
+    { lbl: "Auslastung", val: fmtPct(occAll.occupancy), cap: `${occAll.occ} von ${occAll.avail} Nächten` },
     { lbl: "Umsatz brutto", val: fmt(q.totals.gross), cap: "vor Portal-Kommission" },
     { lbl: "Provisionsbasis", val: fmt(q.totals.base), cap: "nach Kommission & Reinigung" },
     { lbl: "Buchungen", val: String(q.totals.bookings), cap: portalSplit(q.bookings) },
@@ -261,6 +321,17 @@ function renderQuarter(q) {
   }
   view.appendChild(summaryTable(rows, "Monat / Objekt"));
   view.appendChild(grandBar(`Total Provision ${q.label}`, q.totals.provision, q.totals.billed));
+
+  const perfRows = [];
+  for (const m of q.months)
+    for (const obj of DATA.objects)
+      perfRows.push({ label: `${m.label} · ${obj}`, color: COLOR[obj], p: perfMonthObject(q, m.key, obj) });
+  for (const obj of DATA.objects) {
+    const p = perfCombine(q.months.map(m => perfMonthObject(q, m.key, obj)));
+    perfRows.push({ label: `Total ${q.label} · ${obj}`, sub: true, p: { occ: p.occ, avail: p.avail, rev: p.rev } });
+  }
+  view.appendChild(perfCard("Auslastung & Kennzahlen", perfRows));
+
   if (q.bookings && q.bookings.length) view.appendChild(bookingsDetails(q.bookings));
   document.getElementById("footnote").textContent = `${q.label} · ${q.sublabel}`;
 }
@@ -277,9 +348,11 @@ function renderYear(year) {
     billed: round05(qs.reduce((s, q) => s + (q.totals.billed != null ? q.totals.billed : q.totals.provision), 0)),
   };
   const qLabels = qs.map(q => q.label).join(", ");
+  const occAll = perfCombine(qs.flatMap(q => q.months.flatMap(m => DATA.objects.map(o => perfMonthObject(q, m.key, o)))));
   view.appendChild(kpiRow([
     { lbl: `Provision ${year}`, val: `<small>${DATA.currency}</small> ${fmt(tot.billed)}`, cap: `abgerechnet: ${qLabels}` },
     { lbl: "Netto Eigentümer", val: `<small>${DATA.currency}</small> ${fmt(round2(tot.base - tot.provision))}`, cap: "nach Kommission, Reinigung & Provision" },
+    { lbl: "Auslastung", val: fmtPct(occAll.occupancy), cap: `${occAll.occ} von ${occAll.avail} Nächten` },
     { lbl: "Umsatz brutto", val: fmt(tot.gross), cap: "vor Portal-Kommission" },
     { lbl: "Provisionsbasis", val: fmt(tot.base), cap: "nach Kommission & Reinigung" },
     { lbl: "Buchungen", val: String(tot.bookings), cap: portalSplit(qs.flatMap(q => q.bookings || [])) },
@@ -319,6 +392,19 @@ function renderYear(year) {
   }
   view.appendChild(summaryTable(rows, "Quartal / Objekt"));
   view.appendChild(grandBar(`Total Provision ${year}`, tot.provision, tot.billed));
+
+  const perfRows = [];
+  for (const q of qs)
+    for (const obj of DATA.objects) {
+      const p = perfCombine(q.months.map(m => perfMonthObject(q, m.key, obj)));
+      perfRows.push({ label: `${q.label} · ${obj}`, color: COLOR[obj], p: { occ: p.occ, avail: p.avail, rev: p.rev } });
+    }
+  for (const obj of DATA.objects) {
+    const p = perfCombine(qs.flatMap(q => q.months.map(m => perfMonthObject(q, m.key, obj))));
+    perfRows.push({ label: `Jahr ${year} · ${obj}`, sub: true, p: { occ: p.occ, avail: p.avail, rev: p.rev } });
+  }
+  view.appendChild(perfCard("Auslastung & Kennzahlen", perfRows));
+
   const note = document.createElement("p");
   note.className = "empty";
   note.style.padding = ".2rem 0 0";
