@@ -192,8 +192,8 @@ function summaryTable(rows, firstColLabel) {
   const wrap = document.createElement("div");
   wrap.className = "card";
   wrap.innerHTML = `<div class="tablewrap"><table>
-    <thead><tr><th>${firstColLabel}</th><th class="num">Buchungen</th><th class="num">Umsatz brutto</th><th class="num">Provisionsbasis</th><th class="num">Provision</th></tr></thead>
-    <tbody>${rows.map(r => `<tr${r.sub ? ' class="sub"' : ""}><td>${r.color ? `<i class="dot" style="background:${r.color}"></i>` : ""}${esc(r.label)}</td><td class="num">${r.bookings}</td><td class="num">${fmt(r.gross)}</td><td class="num">${fmt(r.base)}</td><td class="num">${fmt(r.provision)}</td></tr>`).join("")}</tbody>
+    <thead><tr><th>${firstColLabel}</th><th class="num">Buchungen</th><th class="num">Umsatz brutto</th><th class="num">Provisionsbasis</th><th class="num">Provision</th><th class="num">Netto Eigentümer</th></tr></thead>
+    <tbody>${rows.map(r => `<tr${r.sub ? ' class="sub"' : ""}><td>${r.color ? `<i class="dot" style="background:${r.color}"></i>` : ""}${esc(r.label)}</td><td class="num">${r.bookings}</td><td class="num">${fmt(r.gross)}</td><td class="num">${fmt(r.base)}</td><td class="num">${fmt(r.provision)}</td><td class="num">${fmt(round2(r.base - r.provision))}</td></tr>`).join("")}</tbody>
   </table></div>`;
   return wrap;
 }
@@ -215,9 +215,9 @@ function bookingsDetails(bookings) {
   }
   det.innerHTML = `<summary>Details pro Buchung (${bookings.length} Buchungen)</summary>
   <div class="tablewrap"><table>
-    <thead><tr><th>Gast</th><th>Objekt · Portal</th><th>Aufenthalt</th><th class="num">Brutto</th><th class="num">Kommission</th><th class="num">Pauschale</th><th class="num">Basis</th><th class="num">Provision</th></tr></thead>
-    <tbody>${byMonth.map(m => `<tr class="month"><td colspan="8">${esc(m.month)}</td></tr>` + m.items.map(b =>
-      `<tr><td>${esc(b.guest)}</td><td><i class="dot" style="background:${COLOR[b.object]}"></i>${esc(b.object)} · ${esc(b.portal)}</td><td>${esc(b.stay)}</td><td class="num">${fmt(b.gross)}</td><td class="num">${fmt(b.commission)}</td><td class="num">${fmt(b.cleaning)}</td><td class="num">${fmt(b.base)}</td><td class="num">${fmt(b.provision)}</td></tr>`).join("")).join("")}</tbody>
+    <thead><tr><th>Gast</th><th>Objekt · Portal</th><th>Aufenthalt</th><th class="num">Brutto</th><th class="num">Kommission</th><th class="num">Pauschale</th><th class="num">Basis</th><th class="num">Provision</th><th class="num">Netto Eigentümer</th></tr></thead>
+    <tbody>${byMonth.map(m => `<tr class="month"><td colspan="9">${esc(m.month)}</td></tr>` + m.items.map(b =>
+      `<tr><td>${esc(b.guest)}</td><td><i class="dot" style="background:${COLOR[b.object]}"></i>${esc(b.object)} · ${esc(b.portal)}</td><td>${esc(b.stay)}</td><td class="num">${fmt(b.gross)}</td><td class="num">${fmt(b.commission)}</td><td class="num">${fmt(b.cleaning)}</td><td class="num">${fmt(b.base)}</td><td class="num">${fmt(b.provision)}</td><td class="num">${fmt(round2(b.base - b.provision))}</td></tr>`).join("")).join("")}</tbody>
   </table></div>`;
   return det;
 }
@@ -227,9 +227,10 @@ function renderQuarter(q) {
   const view = document.getElementById("view");
   view.appendChild(kpiRow([
     { lbl: `Provision ${q.label}`, val: `<small>${DATA.currency}</small> ${fmt(q.totals.billed != null ? q.totals.billed : q.totals.provision)}`, cap: q.sublabel },
+    { lbl: "Netto Eigentümer", val: `<small>${DATA.currency}</small> ${fmt(round2(q.totals.base - q.totals.provision))}`, cap: "nach Kommission, Reinigung & Provision" },
     { lbl: "Umsatz brutto", val: fmt(q.totals.gross), cap: "vor Portal-Kommission" },
-    { lbl: "Buchungen", val: String(q.totals.bookings), cap: portalSplit(q.bookings) },
     { lbl: "Provisionsbasis", val: fmt(q.totals.base), cap: "nach Kommission & Reinigung" },
+    { lbl: "Buchungen", val: String(q.totals.bookings), cap: portalSplit(q.bookings) },
   ]));
 
   const cards = document.createElement("div");
@@ -278,9 +279,10 @@ function renderYear(year) {
   const qLabels = qs.map(q => q.label).join(", ");
   view.appendChild(kpiRow([
     { lbl: `Provision ${year}`, val: `<small>${DATA.currency}</small> ${fmt(tot.billed)}`, cap: `abgerechnet: ${qLabels}` },
+    { lbl: "Netto Eigentümer", val: `<small>${DATA.currency}</small> ${fmt(round2(tot.base - tot.provision))}`, cap: "nach Kommission, Reinigung & Provision" },
     { lbl: "Umsatz brutto", val: fmt(tot.gross), cap: "vor Portal-Kommission" },
-    { lbl: "Buchungen", val: String(tot.bookings), cap: portalSplit(qs.flatMap(q => q.bookings || [])) },
     { lbl: "Provisionsbasis", val: fmt(tot.base), cap: "nach Kommission & Reinigung" },
+    { lbl: "Buchungen", val: String(tot.bookings), cap: portalSplit(qs.flatMap(q => q.bookings || [])) },
   ]));
 
   const cards = document.createElement("div");
