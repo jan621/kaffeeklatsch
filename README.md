@@ -1,50 +1,51 @@
 # Hostflow Kundenportal
 
 Kundenportal für Provisionsabrechnungen des Ferienwohnungs-Managements.
-Kunden melden sich mit Benutzername und Zahlencode an und sehen ihre
-Abrechnungen pro Quartal sowie eine Jahresübersicht. Erster Kunde:
-**KaffeeKlatsch Wallis AG** (B&B Brig by KaffeeKlatsch, Studio & Apartment).
+Es zeigt die Abrechnungen pro Quartal sowie eine Jahresübersicht mit
+Kennzahlen (Provision, Netto Eigentümer, Auslastung, ADR, RevPAR).
+Erster Kunde: **KaffeeKlatsch Wallis AG** (B&B Brig by KaffeeKlatsch,
+Studio & Apartment).
 
-Gehostet auf Vercel: statisches Frontend aus `docs/`, Login und Daten über
-Serverless Functions in `api/` (Session-Cookie, HttpOnly, 12 h gültig).
-Die Abrechnungsdaten sind nur mit gültiger Anmeldung abrufbar.
+Gehostet auf Vercel: statisches Frontend aus `docs/`, Daten über eine
+Serverless Function in `api/`. **Der Zugriff ist offen (ohne Login)** –
+das Dashboard ist direkt unter der Root-URL erreichbar.
+
+> Hinweis: Ohne Login sind Gästenamen und Finanzzahlen öffentlich abrufbar.
+> Wer die URL kennt, sieht alles. Bei Bedarf Gästenamen anonymisieren.
 
 ## Struktur
 
 | Pfad | Inhalt |
 |---|---|
-| `docs/index.html` | Login-Seite |
-| `docs/portal.html` | Dashboard (Quartals- & Jahresansicht, rein datengetrieben) |
-| `docs/assets/` | Stylesheet & Logo (`logo.png` durch Original ersetzbar) |
-| `api/login.js` / `logout.js` / `data.js` | Auth- und Daten-Endpunkte |
-| `api/_lib/users.js` | Kundenkonten (Benutzername + gehashter Zahlencode) |
-| `api/_lib/auth.js` | Session-Handling (HMAC-signierte Cookies) |
+| `docs/index.html` | Dashboard (Quartals- & Jahresansicht, datengetrieben) |
+| `docs/assets/` | Stylesheet & Logo |
+| `api/data.js` | Offener Datenendpunkt (liefert die Kundendaten als JSON) |
 | `api/_data/<kunde>.js` | Abrechnungsdaten pro Kunde |
-| `abrechnung/` | Berechnungsskripte & Excel-Abrechnung Q2 2026 |
+| `abrechnung/` | Berechnungsskripte & Excel-Abrechnung |
+
+## Kennzahlen
+
+- **Provision** je Objekt und Monat: Brutto-Monatsumsatz bis CHF 1'600 → 5 %,
+  darüber → 10 %. Basis = Buchungswert ./. Portal-Kommission ./. Reinigung
+  (Studio CHF 100, Apartment CHF 130).
+- **Netto Eigentümer** = Provisionsbasis ./. Provision.
+- **Auslastung / ADR / RevPAR**: Nächte werden aus den Aufenthalten
+  kalendergenau dem Monat zugeteilt; ADR = Ø Umsatz pro belegte Nacht (brutto),
+  RevPAR = Umsatz pro verfügbare Nacht.
 
 ## Neuen Kunden anlegen
 
-1. Datenmodul `api/_data/<kunde>.js` erstellen (Struktur wie `kaffeeklatsch.js`;
-   die Berechnungslogik kann pro Kunde abweichen — das Portal zeigt nur die
-   fertig berechneten Werte an).
-2. Konto in `api/_lib/users.js` ergänzen. Hash für den Zahlencode erzeugen:
-   ```
-   node -e "const c=require('crypto');const salt=c.randomBytes(8).toString('hex');const code='123456';console.log(salt, c.createHash('sha256').update(salt+':'+code).digest('hex'))"
-   ```
-3. Datenmodul in `api/data.js` unter `DATA` registrieren.
+1. Datenmodul `api/_data/<kunde>.js` erstellen (Struktur wie `kaffeeklatsch.js`).
+2. In `api/data.js` das passende Modul liefern (z.B. anhand eines
+   Query-Parameters, falls mehrere Kunden bedient werden).
 
-## Neues Quartal erfassen
+## Neues Quartal / neuen Monat erfassen
 
-Im Datenmodul des Kunden einen Eintrag im Array `quarters` ergänzen
-(Monatszeilen, Totale, Buchungsliste). Quartals-Tab und Jahresübersicht
-erscheinen automatisch.
+Im Datenmodul des Kunden einen Eintrag im Array `quarters` ergänzen bzw. einen
+Monat zum bestehenden Quartal hinzufügen (Monatszeilen, Totale, Buchungsliste).
+Quartals-Tab, Jahresübersicht und Kennzahlen aktualisieren sich automatisch.
 
 ## Betrieb
 
-- **Vercel:** deployt automatisch bei Push auf `main`. `vercel.json` setzt
+- **Vercel** deployt automatisch bei Push auf `main`. `vercel.json` setzt
   `docs/` als statisches Output-Verzeichnis; `api/` wird als Functions erkannt.
-- **Empfohlen:** In Vercel die Umgebungsvariable `SESSION_SECRET` setzen
-  (beliebiger langer Zufallswert), damit Sessions nicht vom eingecheckten
-  Fallback-Secret abhängen.
-- Zahlencodes liegen nur als Hash im Repo; die Klartext-Codes werden den
-  Kunden direkt mitgeteilt.

@@ -1,17 +1,13 @@
-const { authenticate, json } = require("./_lib/auth");
-const { getUser } = require("./_lib/users");
-
-// Datenmodule pro Kunde; neue Kunden hier registrieren.
-const DATA = {
-  kaffeeklatsch: () => require("./_data/kaffeeklatsch"),
-};
+// Offener Datenendpunkt (kein Login). Liefert die Abrechnungsdaten des Kunden.
+// Weitere Kunden: hier ggf. anhand eines Query-Parameters unterscheiden.
+const data = require("./_data/kaffeeklatsch");
 
 module.exports = (req, res) => {
-  const clientId = authenticate(req);
-  if (!clientId || !DATA[clientId]) return json(res, 401, { error: "unauthorized" });
-  const user = getUser(clientId);
-  return json(res, 200, {
-    user: { clientId, displayName: user ? user.displayName : clientId },
-    data: DATA[clientId](),
-  });
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Cache-Control", "no-store");
+  res.end(JSON.stringify({
+    user: { clientId: data.clientId, displayName: data.clientName },
+    data,
+  }));
 };
