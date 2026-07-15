@@ -2,5 +2,9 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "",
   "outputDirectory": "docs",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/kaffeeklatsch", "destination": "/app?c=kaffeeklatsch" },
+    { "source": "/msds", "destination": "/app?c=msds" }
+  ]
 }

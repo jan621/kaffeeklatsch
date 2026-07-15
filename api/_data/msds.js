@@ -1,0 +1,75 @@
+// Abrechnungsdaten MSDS Invest GmbH — Q1-Q3 2026.
+// Quelle/Logik: abrechnung/berechnung_msds_2026.py
+module.exports = {
+  clientId: "msds",
+  clientName: "MSDS Invest GmbH",
+  property: "Zentrumsnahe Wohnung mit Blick",
+  objects: ["Wohnung"],
+  currency: "CHF",
+  quarters: [
+    {
+      id: "2026-Q1", year: 2026, quarter: 1, label: "Q1 2026", sublabel: "Januar – März 2026 (laufend)",
+      months: [
+        { key: "2026-01", label: "Januar", rows: [ { object: "Wohnung", bookings: 2, gross: 1326.40, base: 682.95, provision: 136.59 } ] },
+        { key: "2026-02", label: "Februar", rows: [ { object: "Wohnung", bookings: 3, gross: 3947.14, base: 2870.65, provision: 574.13 } ] },
+        { key: "2026-03", label: "März", rows: [ { object: "Wohnung", bookings: 2, gross: 1718.14, base: 1186.96, provision: 237.40 } ] },
+      ],
+      totals: { bookings: 7, gross: 6991.68, base: 4740.56, provision: 948.12, billed: 948.10, software: 150.00, softwareMonths: 3 },
+      bookings: [
+        { month: "Januar 2026", guest: "Laila Buchser", object: "Wohnung", portal: "Airbnb", stay: "16.01.–18.01.", gross: 620.40, commission: 103.95, cleaning: 200.00, base: 316.45, provision: 63.29 },
+        { month: "Januar 2026", guest: "Dennis Groß", object: "Wohnung", portal: "Airbnb", stay: "23.01.–25.01.", gross: 706.00, commission: 164.50, cleaning: 175.00, base: 366.50, provision: 73.30 },
+        { month: "Februar 2026", guest: "Aaron Keller", object: "Wohnung", portal: "Booking.com", stay: "31.01.–03.02.", gross: 1087.14, commission: 130.46, cleaning: 175.00, base: 781.68, provision: 156.34 },
+        { month: "Februar 2026", guest: "Thomas Huber", object: "Wohnung", portal: "Booking.com", stay: "13.02.–18.02.", gross: 1749.00, commission: 209.88, cleaning: 150.00, base: 1389.12, provision: 277.82 },
+        { month: "Februar 2026", guest: "Saina Schnocklake", object: "Wohnung", portal: "Airbnb", stay: "18.02.–22.02.", gross: 1111.00, commission: 186.15, cleaning: 225.00, base: 699.85, provision: 139.97 },
+        { month: "März 2026", guest: "Christian Nuss", object: "Wohnung", portal: "Booking.com", stay: "26.02.–01.03.", gross: 1087.14, commission: 130.46, cleaning: 175.00, base: 781.68, provision: 156.34 },
+        { month: "März 2026", guest: "Roger Borer", object: "Wohnung", portal: "Booking.com", stay: "06.03.–08.03.", gross: 631.00, commission: 75.72, cleaning: 150.00, base: 405.28, provision: 81.06 },
+      ],
+    },
+    {
+      id: "2026-Q2", year: 2026, quarter: 2, label: "Q2 2026", sublabel: "April – Juni 2026 (laufend)",
+      months: [
+        { key: "2026-05", label: "Mai", rows: [ { object: "Wohnung", bookings: 1, gross: 594.00, base: 319.50, provision: 63.90 } ] },
+        { key: "2026-06", label: "Juni", rows: [ { object: "Wohnung", bookings: 6, gross: 3673.60, base: 1393.82, provision: 291.11 } ] },
+      ],
+      totals: { bookings: 7, gross: 4267.60, base: 1713.32, provision: 355.01, billed: 355.00, software: 150.00, softwareMonths: 3 },
+      bookings: [
+        { month: "Mai 2026", guest: "Saulean Ligia", object: "Wohnung", portal: "Airbnb", stay: "21.05.–25.05.", gross: 594.00, commission: 99.50, cleaning: 175.00, base: 319.50, provision: 63.90 },
+        { month: "Juni 2026", guest: "Piotr Niemczyk", object: "Wohnung", portal: "Booking.com", stay: "30.05.–01.06.", gross: 439.00, commission: 52.68, cleaning: 175.00, base: 211.32, provision: 42.26 },
+        { month: "Juni 2026", guest: "Surbhi", object: "Wohnung", portal: "Airbnb", stay: "29.05.–02.06.", gross: 462.00, commission: 77.40, cleaning: 225.00, base: 159.60, provision: 31.92 },
+        { month: "Juni 2026", guest: "Efe Yağcızeybek", object: "Wohnung", portal: "Airbnb", stay: "04.06.–06.06.", gross: 493.00, commission: 82.60, cleaning: 200.00, base: 210.40, provision: 42.08 },
+        { month: "Juni 2026", guest: "Bugrahan Kumru", object: "Wohnung", portal: "Airbnb", stay: "08.06.–10.06.", gross: 516.60, commission: 86.55, cleaning: 225.00, base: 205.05, provision: 41.01 },
+        { month: "Juni 2026", guest: "Gonzalo Jr Nora", object: "Wohnung", portal: "Airbnb", stay: "13.06.–17.06.", gross: 924.00, commission: 154.80, cleaning: 100.00, base: 669.20, provision: 133.84 },
+        { month: "Juni 2026", guest: "Jas", object: "Wohnung", portal: "Airbnb", stay: "17.06.–21.06.", gross: 839.00, commission: 700.75, cleaning: 200.00, base: -61.75, provision: 0.00 },
+      ],
+    },
+    {
+      id: "2026-Q3", year: 2026, quarter: 3, label: "Q3 2026", sublabel: "Juli – September 2026 (laufend)",
+      months: [
+        { key: "2026-07", label: "Juli", rows: [ { object: "Wohnung", bookings: 10, gross: 5857.15, base: 3137.34, provision: 627.47 } ] },
+        { key: "2026-08", label: "August", rows: [ { object: "Wohnung", bookings: 7, gross: 4563.30, base: 2584.48, provision: 516.90 } ] },
+        { key: "2026-09", label: "September", rows: [ { object: "Wohnung", bookings: 1, gross: 439.00, base: 211.32, provision: 42.26 } ] },
+      ],
+      totals: { bookings: 18, gross: 10859.45, base: 5933.14, provision: 1186.63, billed: 1186.65, software: 150.00, softwareMonths: 3 },
+      bookings: [
+        { month: "Juli 2026", guest: "Reza Serajeh", object: "Wohnung", portal: "Booking.com", stay: "06.07.–08.07.", gross: 490.00, commission: 58.80, cleaning: 200.00, base: 231.20, provision: 46.24 },
+        { month: "Juli 2026", guest: "johan gebhardt", object: "Wohnung", portal: "Booking.com", stay: "10.07.–12.07.", gross: 490.00, commission: 58.80, cleaning: 175.00, base: 256.20, provision: 51.24 },
+        { month: "Juli 2026", guest: "yaser ALahmadi", object: "Wohnung", portal: "Booking.com", stay: "12.07.–15.07.", gross: 685.50, commission: 82.26, cleaning: 150.00, base: 453.24, provision: 90.65 },
+        { month: "Juli 2026", guest: "Jonas Thomsen", object: "Wohnung", portal: "Booking.com", stay: "15.07.–17.07.", gross: 490.00, commission: 58.80, cleaning: 175.00, base: 256.20, provision: 51.24 },
+        { month: "Juli 2026", guest: "Katja Antoniadis", object: "Wohnung", portal: "Booking.com", stay: "23.07.–25.07.", gross: 490.00, commission: 58.80, cleaning: 200.00, base: 231.20, provision: 46.24 },
+        { month: "Juli 2026", guest: "源权 欧阳", object: "Wohnung", portal: "Airbnb", stay: "03.07.–05.07.", gross: 544.20, commission: 91.20, cleaning: 150.00, base: 303.00, provision: 60.60 },
+        { month: "Juli 2026", guest: "Ibrahim Alsulami", object: "Wohnung", portal: "Airbnb", stay: "17.07.–21.07.", gross: 1024.00, commission: 171.55, cleaning: 225.00, base: 627.45, provision: 125.49 },
+        { month: "Juli 2026", guest: "Koushik B. Gangadharacharya", object: "Wohnung", portal: "Airbnb", stay: "21.07.–23.07.", gross: 427.95, commission: 67.20, cleaning: 175.00, base: 185.75, provision: 37.15 },
+        { month: "Juli 2026", guest: "Kristoffer Gadegaard", object: "Wohnung", portal: "Airbnb", stay: "25.07.–27.07.", gross: 624.00, commission: 104.55, cleaning: 225.00, base: 294.45, provision: 58.89 },
+        { month: "Juli 2026", guest: "Tim Inderbitzin", object: "Wohnung", portal: "Airbnb", stay: "28.07.–30.07.", gross: 591.50, commission: 92.85, cleaning: 200.00, base: 298.65, provision: 59.73 },
+        { month: "August 2026", guest: "Niko Proufas", object: "Wohnung", portal: "Booking.com", stay: "30.07.–02.08.", gross: 685.50, commission: 82.26, cleaning: 225.00, base: 378.24, provision: 75.65 },
+        { month: "August 2026", guest: "Robert van der Post", object: "Wohnung", portal: "Booking.com", stay: "16.08.–19.08.", gross: 685.50, commission: 82.26, cleaning: 150.00, base: 453.24, provision: 90.65 },
+        { month: "August 2026", guest: "Denis Moschetto", object: "Wohnung", portal: "Booking.com", stay: "27.08.–29.08.", gross: 490.00, commission: 58.80, cleaning: 225.00, base: 206.20, provision: 41.24 },
+        { month: "August 2026", guest: "Ramona Lupu", object: "Wohnung", portal: "Airbnb", stay: "03.08.–06.08.", gross: 599.40, commission: 94.10, cleaning: 200.00, base: 305.30, provision: 61.06 },
+        { month: "August 2026", guest: "Mohammed H. J. Aldawsari", object: "Wohnung", portal: "Airbnb", stay: "06.08.–09.08.", gross: 764.30, commission: 119.95, cleaning: 175.00, base: 469.35, provision: 93.87 },
+        { month: "August 2026", guest: "Saeed Al", object: "Wohnung", portal: "Airbnb", stay: "11.08.–14.08.", gross: 739.60, commission: 116.10, cleaning: 150.00, base: 473.50, provision: 94.70 },
+        { month: "August 2026", guest: "Griselle Vazquez Fresse", object: "Wohnung", portal: "Airbnb", stay: "25.08.–27.08.", gross: 599.00, commission: 100.35, cleaning: 200.00, base: 298.65, provision: 59.73 },
+        { month: "September 2026", guest: "Mathieu Bohn", object: "Wohnung", portal: "Booking.com", stay: "11.09.–13.09.", gross: 439.00, commission: 52.68, cleaning: 175.00, base: 211.32, provision: 42.26 },
+      ],
+    },
+  ],
+};

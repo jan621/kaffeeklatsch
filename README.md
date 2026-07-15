@@ -8,20 +8,38 @@ Studio & Apartment).
 
 Gehostet auf Vercel: statisches Frontend aus `docs/`, Daten über eine
 Serverless Function in `api/`. **Der Zugriff ist offen (ohne Login)** –
-das Dashboard ist direkt unter der Root-URL erreichbar.
+jedes Kundenportal ist direkt über seine URL erreichbar.
 
-> Hinweis: Ohne Login sind Gästenamen und Finanzzahlen öffentlich abrufbar.
-> Wer die URL kennt, sieht alles. Bei Bedarf Gästenamen anonymisieren.
+- **Hauptdomain `/`** → neutrale Landingpage.
+- **`/kaffeeklatsch`** → Portal KaffeeKlatsch Wallis AG.
+- **`/msds`** → Portal MSDS Invest GmbH.
+
+> Hinweis: Ohne Login sind Gästenamen und Finanzzahlen öffentlich abrufbar,
+> wer die URL kennt, sieht alles. Bei Bedarf Gästenamen anonymisieren.
 
 ## Struktur
 
 | Pfad | Inhalt |
 |---|---|
-| `docs/index.html` | Dashboard (Quartals- & Jahresansicht, datengetrieben) |
+| `docs/index.html` | Neutrale Landingpage (Hauptdomain) |
+| `docs/app.html` | Generisches Dashboard, liest Kunde aus Pfad/Query |
 | `docs/assets/` | Stylesheet & Logo |
-| `api/data.js` | Offener Datenendpunkt (liefert die Kundendaten als JSON) |
+| `vercel.json` | Rewrites `/kaffeeklatsch` und `/msds` → `app` |
+| `api/data.js` | Datenendpunkt, Kunde via `?client=` |
 | `api/_data/<kunde>.js` | Abrechnungsdaten pro Kunde |
-| `abrechnung/` | Berechnungsskripte & Excel-Abrechnung |
+| `abrechnung/` | Berechnungsskripte pro Kunde |
+
+Das Dashboard ist kundenneutral: Ein-/Mehrobjekt, optionale Softwarekosten
+(`totals.software`) und beliebige Berechnungslogik werden aus dem jeweiligen
+Datenmodul gespeist.
+
+## Kunden & Berechnung
+
+- **KaffeeKlatsch** (Studio & Apartment): 5 %/10 % je nach Monatsumsatz,
+  Reinigung Studio 100 / Apartment 130.
+- **MSDS Invest** (1 Wohnung): 20 % immer; Reinigung 100 + 25/Person
+  (Airbnb: Reinigungsgebühr min 60 + Bettwäsche + 40 Verwaltung); zusätzlich
+  CHF 50 Softwarekosten je Kalendermonat.
 
 ## Kennzahlen
 
