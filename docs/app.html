@@ -113,6 +113,7 @@ function perfMonthObject(q, monthKey, obj) {
   let occ = 0, rev = 0;
   for (const b of q.bookings) {
     if (b.object !== obj) continue;
+    if (b.noStay) continue;
     const s = parseStay(b.stay, q.year);
     if (!s || !s.nights) continue;
     const nim = nightsInMonth(s.in, s.out, q.year, mIdx);
